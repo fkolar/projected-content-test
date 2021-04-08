@@ -1,4 +1,4 @@
-import {Compiler, Component, ComponentFactoryResolver, ComponentRef, OnInit, Renderer2, ViewContainerRef} from '@angular/core';
+import {Compiler, Component, ComponentFactoryResolver, ComponentRef, Injector, OnInit, Renderer2, ViewContainerRef} from '@angular/core';
 import {MyButtonComponent} from './my-button/my-button.component';
 import {ComplexComponentComponent} from './complex-component/complex-component.component';
 import {ComplexComponentModule} from './complex-component/complex-component.module';
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(private viewContainer: ViewContainerRef, private crf: ComponentFactoryResolver,
-              private render: Renderer2, private compiler: Compiler) {
+              private render: Renderer2, private compiler: Compiler, private injector: Injector) {
   }
 
   ngOnInit(): void {
@@ -26,10 +26,12 @@ export class AppComponent implements OnInit {
     // this.applyBindings(ref.instance, 'value', context);
 
     const module = this.compiler.compileModuleAndAllComponentsSync(ComplexComponentModule);
+    const moduleNgModuleRef = module.ngModuleFactory.create(this.injector);
     console.log(module.componentFactories[0]);
     const cmdFactory = module.componentFactories[0];
-
-    const component: ComponentRef<ComplexComponentComponent> = this.viewContainer.createComponent(cmdFactory);
+    const component: ComponentRef<ComplexComponentComponent> = this.viewContainer.createComponent(cmdFactory, null,
+      this.injector, [[]], moduleNgModuleRef);
+    console.log(component);
   }
 
   private applyBindings(instance: MyButtonComponent, key: string, context: Map<any, any>): void {
