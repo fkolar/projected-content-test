@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Host, OnInit, Optional} from '@angular/core';
+import {ChangeDetectorRef, Component, Host, Injector, OnInit, Optional} from '@angular/core';
 import {ParentComponent} from '../parent.component';
 
 @Component({
@@ -10,6 +10,7 @@ export class ChildComponent implements OnInit {
 
 
   constructor(private cd: ChangeDetectorRef,
+              private injector: Injector,
               @Optional() @Host() private parent: ParentComponent) {
   }
 

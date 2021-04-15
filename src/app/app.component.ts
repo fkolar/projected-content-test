@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     const factory = this.crf.resolveComponentFactory(ChildComponent);
     const ref = this.vc.createComponent(factory, 0, this.injector);
 

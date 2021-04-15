@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {MetaConfig} from '@ngx-metaui/rules';
 import {ParentComponent} from './parent/parent.component';
 import {ChildComponent} from './parent/child/child.component';
-import {SomeService} from './services/some-service';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +16,6 @@ import {SomeService} from './services/some-service';
   imports: [
     BrowserModule
   ],
-  providers: [SomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
