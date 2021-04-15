@@ -1,0 +1,18 @@
+<div class="page">
+  <h2>Object Detail</h2>
+  
+    <a mat-button (click)="operation='create'">Create</a> |
+    <a mat-button (click)="operation='edit'">Edit</a> |
+    <a mat-button (click)="operation='view'">View</a>
+  
+
+  
+
+  <hr/>
+
+  <m-context [object]="object" [operation]="operation" layout="Inspect">
+    <m-render></m-render>
+  </m-context>
+
+</div>
+

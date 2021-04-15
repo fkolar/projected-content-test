@@ -1,7 +1,6 @@
-import {Compiler, Component, ComponentFactoryResolver, ComponentRef, Injector, OnInit, Renderer2, ViewContainerRef} from '@angular/core';
-import {MyButtonComponent} from './my-button/my-button.component';
-import {ComplexComponentComponent} from './complex-component/complex-component.component';
-import {ComplexComponentModule} from './complex-component/complex-component.module';
+import {Compiler, Component, ComponentFactoryResolver, Injector, OnInit, Renderer2, ViewChild, ViewContainerRef} from '@angular/core';
+import {ChildComponent} from './parent/child/child.component';
+import {ParentComponent} from './parent/parent.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,11 @@ import {ComplexComponentModule} from './complex-component/complex-component.modu
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'projected-content-test';
+  @ViewChild('vc', {static: true, read: ViewContainerRef})
+  vc: ViewContainerRef;
+
+  @ViewChild('parent', {static: true})
+  parent: ParentComponent;
 
 
   constructor(private viewContainer: ViewContainerRef, private crf: ComponentFactoryResolver,
@@ -18,62 +21,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // const factory = this.crf.resolveComponentFactory(ComplexComponentComponent);
-    // const ref = this.viewContainer.createComponent(factory, 0, null);
-    //
-    // const context = new Map();
-    // context.set('value', '@aaaa');
-    // this.applyBindings(ref.instance, 'value', context);
+    const factory = this.crf.resolveComponentFactory(ChildComponent);
+    const ref = this.vc.createComponent(factory, 0, this.injector);
 
-    const module = this.compiler.compileModuleAndAllComponentsSync(ComplexComponentModule);
-    const moduleNgModuleRef = module.ngModuleFactory.create(this.injector);
-    console.log(module.componentFactories[0]);
-    const cmdFactory = module.componentFactories[0];
-    const component: ComponentRef<ComplexComponentComponent> = this.viewContainer.createComponent(cmdFactory, null,
-      this.injector, [[]], moduleNgModuleRef);
-    console.log(component);
+
+    // const module = this.compiler.compileModuleAndAllComponentsSync(ComplexComponentModule);
+    // const moduleNgModuleRef = module.ngModuleFactory.create(this.injector);
+    // console.log(module.componentFactories[0]);
+    // const cmdFactory = module.componentFactories[0];
+    // const component: ComponentRef<ComplexComponentComponent> = this.viewContainer.createComponent(cmdFactory, null,
+    //   this.injector, [[]], moduleNgModuleRef);
+    // console.log(component);
   }
-
-  private applyBindings(instance: MyButtonComponent, key: string, context: Map<any, any>): void {
-    const origDescriptor = Object.getOwnPropertyDescriptor(instance.constructor.prototype, key);
-    const origRefSetter = origDescriptor ? origDescriptor.set : null;
-
-    const pathBinding = new ContextFieldPathBinding(context, instance);
-    pathBinding.init(key, key, true);
-
-  }
-}
-
-
-class ContextFieldPathBinding {
-
-  constructor(private metaContext: Map<any, any>, private componentInstance: any) {
-  }
-
-  init(bindingName: string, cnxFieldPath: string, isInput: boolean = true): void {
-
-    Object.defineProperty(this.componentInstance, bindingName, {
-      get: () => {
-        return this.value();
-      },
-
-      set: (val) => {
-        this.setValue(val);
-      },
-      enumerable: true,
-      configurable: true
-    });
-
-  }
-
-
-  value(): any {
-    return this.metaContext.get('value');
-  }
-
-  setValue(value: any): void {
-    console.log('setting value: ', value);
-  }
-
 
 }
