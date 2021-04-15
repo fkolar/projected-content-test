@@ -7,20 +7,25 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compile:oss": "oss -i src/app/rules -u -n user-rules",
+    "watch:oss": "watch --wait=8 'npm run compile:oss' src/app/rules "
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.0.1",
+    "@angular/cdk": "^11.2.8",
     "@angular/common": "~11.0.1",
     "@angular/compiler": "~11.0.1",
     "@angular/core": "~11.0.1",
     "@angular/forms": "~11.0.1",
+    "@angular/material": "^11.2.8",
     "@angular/platform-browser": "~11.0.1",
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/router": "~11.0.1",
-    "rxjs": "~6.6.0",
+    "rxjs": "6.6.7",
     "tslib": "^2.0.0",
+    "watch": "^1.0.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

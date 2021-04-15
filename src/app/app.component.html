@@ -1,1 +1,12 @@
-<!--<app-complex-component></app-complex-component>-->
+<h1>Static</h1>
+
+<app-parent>
+  <app-child></app-child>
+</app-parent>
+
+<hr/>
+
+<h1>Dynamic</h1>
+<app-parent #parent>
+  <ng-container #vc></ng-container>
+</app-parent>

@@ -2,19 +2,29 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {MyButtonComponent} from './my-button/my-button.component';
-import {ComplexComponentModule} from './complex-component/complex-component.module';
+import {MetaConfig} from '@ngx-metaui/rules';
+import {ParentComponent} from './parent/parent.component';
+import {ChildComponent} from './parent/child/child.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyButtonComponent
+    ParentComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+
+  constructor(private config: MetaConfig) {
+    // mandatory - you need to register app defined rules and types
+
+    // config.registerRules(userRules);
+
+  }
 }
