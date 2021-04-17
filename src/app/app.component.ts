@@ -1,6 +1,15 @@
-import {Compiler, Component, ComponentFactoryResolver, Injector, OnInit, Renderer2, ViewChild, ViewContainerRef} from '@angular/core';
-import {ChildComponent} from './parent/child/child.component';
-import {ParentComponent} from './parent/parent.component';
+import {
+  Compiler,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Injector,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+import {ChildModule} from './parent/child/child.module';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +20,6 @@ export class AppComponent implements OnInit {
   @ViewChild('vc', {static: true, read: ViewContainerRef})
   vc: ViewContainerRef;
 
-  @ViewChild('parent', {static: true})
-  parent: ParentComponent;
 
 
   constructor(private viewContainer: ViewContainerRef, private crf: ComponentFactoryResolver,
@@ -20,17 +27,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const factory = this.crf.resolveComponentFactory(ChildComponent);
-    const ref = this.vc.createComponent(factory, 0, this.injector);
+    // const factory = this.crf.resolveComponentFactory(ChildComponent);
+    // const ref = this.vc.createComponent(factory, 0, this.vc.injector);
 
-
-    // const module = this.compiler.compileModuleAndAllComponentsSync(ComplexComponentModule);
-    // const moduleNgModuleRef = module.ngModuleFactory.create(this.injector);
-    // console.log(module.componentFactories[0]);
-    // const cmdFactory = module.componentFactories[0];
-    // const component: ComponentRef<ComplexComponentComponent> = this.viewContainer.createComponent(cmdFactory, null,
-    //   this.injector, [[]], moduleNgModuleRef);
-    // console.log(component);
+    const module = this.compiler.compileModuleAndAllComponentsSync(ChildModule);
+    const moduleNgModuleRef = module.ngModuleFactory.create(null);
+    console.log(module.componentFactories[0]);
+    const cmdFactory = module.componentFactories[0];
+    const component: ComponentRef<ChildModule> = this.viewContainer.createComponent(cmdFactory, null,
+      null, [[]], moduleNgModuleRef);
+    console.log(component);
   }
 
 }

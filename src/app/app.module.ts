@@ -10,11 +10,12 @@ import {ChildComponent} from './parent/child/child.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ParentComponent,
-    ChildComponent
+    ParentComponent
   ],
   imports: [
     BrowserModule
+  ],
+  providers: [
   ],
   bootstrap: [AppComponent]
 })
