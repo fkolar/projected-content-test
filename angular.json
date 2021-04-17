@@ -24,16 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/flexboxgrid/css/flexboxgrid.css",
               "src/styles.css"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": [
-              "big-integer",
-              "object-path",
-              "typescript-collections"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
