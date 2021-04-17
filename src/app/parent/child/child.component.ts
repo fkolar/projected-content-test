@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component, Host, Injector, OnInit, Optional} from '@angular/core';
 import {ParentComponent} from '../parent.component';
+import {StaticReflector} from '@angular/compiler';
 
 @Component({
   selector: 'app-child',
@@ -16,5 +17,8 @@ export class ChildComponent implements OnInit {
 
   ngOnInit(): void {
     this.haveParent = !!this.parent;
+
+    console.log('@@@@ => ', this.parent)
+
   }
 }
